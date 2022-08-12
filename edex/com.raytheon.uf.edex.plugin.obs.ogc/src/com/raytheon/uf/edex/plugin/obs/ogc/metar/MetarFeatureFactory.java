@@ -59,7 +59,7 @@ import com.raytheon.uf.common.util.CollectionUtil;
 import com.raytheon.uf.edex.ogc.common.feature.FeatureFactory;
 
 import si.uom.SI;
-import tec.uom.se.unit.MetricPrefix;
+import javax.measure.MetricPrefix;
 
 /**
  * 
