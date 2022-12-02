@@ -17,8 +17,8 @@ import javax.measure.Unit;
 import javax.measure.quantity.Length;
 
 import systems.uom.common.USCustomary;
-import tec.uom.se.format.SimpleUnitFormat;
-import tec.uom.se.unit.MetricPrefix;
+import tech.units.indriya.format.SimpleUnitFormat;
+import javax.measure.MetricPrefix;
 
 /**
  * Vertical level information which can be a point or range.

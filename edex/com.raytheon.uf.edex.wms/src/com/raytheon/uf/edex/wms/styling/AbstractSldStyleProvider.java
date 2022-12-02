@@ -167,10 +167,10 @@ public abstract class AbstractSldStyleProvider implements StyleLookup {
             lib = getStyleLib();
         } catch (WmsException e) {
             log.error("Problem gettin style library", e);
-            return new ArrayList<OgcStyle>(0);
+            return new ArrayList<>(0);
         }
         Set<String> styles = lib.getAllStyles();
-        List<OgcStyle> rval = new ArrayList<OgcStyle>(styles.size());
+        List<OgcStyle> rval = new ArrayList<>(styles.size());
         for (String style : styles) {
             rval.add(new OgcStyle(style));
         }
@@ -245,7 +245,7 @@ public abstract class AbstractSldStyleProvider implements StyleLookup {
             // TODO should this be a blank image instead?
             return null;
         }
-        List<BufferedImage> images = new ArrayList<BufferedImage>(fts.size());
+        List<BufferedImage> images = new ArrayList<>(fts.size());
         for (FeatureTypeStyle ft : fts) {
             BufferedImage legend = getLegend(ft, width, height);
             if (legend != null) {
@@ -278,7 +278,7 @@ public abstract class AbstractSldStyleProvider implements StyleLookup {
         if (rules == null || rules.isEmpty()) {
             return null;
         }
-        List<BufferedImage> ruleImgs = new ArrayList<BufferedImage>(
+        List<BufferedImage> ruleImgs = new ArrayList<>(
                 rules.size());
         for (Rule r : rules) {
             BufferedImage ruleImg = getFeatureLegend(r, null, null);
@@ -434,7 +434,7 @@ public abstract class AbstractSldStyleProvider implements StyleLookup {
         if (rules == null || rules.isEmpty()) {
             return null;
         }
-        List<BufferedImage> imgs = new ArrayList<BufferedImage>(rules.size());
+        List<BufferedImage> imgs = new ArrayList<>(rules.size());
         for (Rule rule : rules) {
             BufferedImage img = getRasterLegend(rule, width, height);
             if (img != null) {
@@ -450,7 +450,7 @@ public abstract class AbstractSldStyleProvider implements StyleLookup {
         if (symbolizers == null || symbolizers.isEmpty()) {
             return null;
         }
-        List<BufferedImage> imgs = new ArrayList<BufferedImage>(
+        List<BufferedImage> imgs = new ArrayList<>(
                 symbolizers.size());
         for (Symbolizer s : symbolizers) {
             if (s instanceof RasterSymbolizer) {
@@ -468,8 +468,8 @@ public abstract class AbstractSldStyleProvider implements StyleLookup {
             Integer width, Integer height) {
         ColorMap cmap = SldUtility.getRaster(symbolizer);
         if (width == null || height == null) {
-            width = ColormapStyleProvider.defaultWidth;
-            height = ColormapStyleProvider.defaultHeight;
+            width = ColormapStyleProvider.DEFAULT_WIDTH;
+            height = ColormapStyleProvider.DEFAULT_HEIGHT;
         }
         // TODO labels
         return LegendUtility.buildColorbar(cmap, width, height);

@@ -68,7 +68,7 @@ import com.raytheon.uf.edex.wcs.reg.DefaultWcsSource;
 import com.raytheon.uf.edex.wcs.reg.RangeAxis;
 import com.raytheon.uf.edex.wcs.reg.RangeField;
 
-import tec.uom.se.format.SimpleUnitFormat;
+import tech.units.indriya.format.SimpleUnitFormat;
 import ucar.units.UnitException;
 import ucar.units.UnitFormatManager;
 

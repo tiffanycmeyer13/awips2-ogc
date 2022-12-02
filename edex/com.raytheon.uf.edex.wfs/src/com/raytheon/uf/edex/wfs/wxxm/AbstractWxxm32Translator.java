@@ -83,7 +83,7 @@ import net.opengis.swe.v_1_0_1_gml32.TimeObjectPropertyType;
 import si.uom.NonSI;
 import si.uom.SI;
 import systems.uom.common.USCustomary;
-import tec.uom.se.quantity.Quantities;
+import tech.units.indriya.quantity.Quantities;
 
 /**
  * Abstract base for translation between data records and WXXM GML JAXB objects

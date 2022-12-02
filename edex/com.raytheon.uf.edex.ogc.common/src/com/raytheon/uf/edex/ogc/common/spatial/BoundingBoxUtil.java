@@ -36,7 +36,7 @@ import com.raytheon.uf.edex.ogc.common.spatial.VerticalCoordinate.Reference;
 import net.opengis.gml.v_3_1_1.EnvelopeType;
 import net.opengis.ows.v_1_1_0.BoundingBoxType;
 import si.uom.SI;
-import tec.uom.se.format.SimpleUnitFormat;
+import tech.units.indriya.format.SimpleUnitFormat;
 
 /**
  * Utilities for Bounding box parsing

@@ -52,7 +52,7 @@ import com.raytheon.uf.edex.ogc.common.OgcException.Code;
 import com.raytheon.uf.edex.ogc.common.spatial.VerticalCoordinate.Reference;
 
 import si.uom.SI;
-import tec.uom.se.format.SimpleUnitFormat;
+import tech.units.indriya.format.SimpleUnitFormat;
 
 /**
  * Coordinate Reference System utility methods and constants. Used to parse CRS
