@@ -79,6 +79,7 @@ import com.raytheon.uf.edex.wms.util.LegendUtility;
  * ------------- -------- --------- --------------------------
  * Nov 28, 2012           bclement  Initial creation
  * Aug 30, 2016  5867     randerso  Updated for GeoTools 15.1
+ * Nov 21, 2022  8905     lsingh    Check for NaN when converting units.
  *
  * </pre>
  *
@@ -101,9 +102,9 @@ public abstract class ColormapStyleProvider<R extends PluginDataObject>
 
     protected Style preRendered;
 
-    public static int defaultWidth = 512;
+    public static final int DEFAULT_WIDTH = 512;
 
-    public static int defaultHeight = 30;
+    public static final int DEFAULT_HEIGHT = 30;
 
     protected ClassLoader loader = null;
 
@@ -370,14 +371,14 @@ public abstract class ColormapStyleProvider<R extends PluginDataObject>
     public List<OgcStyle> getStyles() {
         try {
             List<R> samples = callback.getAllSamples();
-            List<OgcStyle> rval = new ArrayList<OgcStyle>(samples.size());
+            List<OgcStyle> rval = new ArrayList<>(samples.size());
             for (R record : samples) {
                 rval.add(new OgcStyle(lookupInternal(record)));
             }
             return rval;
         } catch (Exception e) {
             log.error("Unable to lookup styles", e);
-            return new ArrayList<OgcStyle>(0);
+            return new ArrayList<>(0);
         }
     }
 
@@ -385,8 +386,8 @@ public abstract class ColormapStyleProvider<R extends PluginDataObject>
     public BufferedImage getLegend(String layer, R record, String style,
             Integer width, Integer height) throws WmsException {
         if ((width == null) || (height == null)) {
-            width = defaultWidth;
-            height = defaultHeight;
+            width = DEFAULT_WIDTH;
+            height = DEFAULT_HEIGHT;
         }
         try {
             ColorMapParameters cmapParams = getCmapParams(record);
@@ -395,8 +396,16 @@ public abstract class ColormapStyleProvider<R extends PluginDataObject>
             float dataMax = cmapParams.getDataMax();
             UnitConverter converter = cmapParams.getDataToDisplayConverter();
             if (converter != null) {
-                dataMin = (float) converter.convert(dataMin);
-                dataMax = (float) converter.convert(dataMax);
+                try {
+                    dataMin = (float) converter.convert(dataMin);
+                } catch (NumberFormatException e) {
+                    dataMin = Float.NaN;
+                }
+                try {
+                    dataMax = (float) converter.convert(dataMax);
+                } catch (NumberFormatException e) {
+                    dataMax = Float.NaN;
+                }
             }
             BufferedImage labels = LegendUtility.buildLabels(width, height,
                     values, dataMin, dataMax);
@@ -452,7 +461,11 @@ public abstract class ColormapStyleProvider<R extends PluginDataObject>
         if (converter == null) {
             return value;
         }
-        return converter.convert(value);
+        try {
+            return converter.convert(value);
+        } catch (NumberFormatException e) {
+            return Double.NaN;
+        }
     }
 
     /**
