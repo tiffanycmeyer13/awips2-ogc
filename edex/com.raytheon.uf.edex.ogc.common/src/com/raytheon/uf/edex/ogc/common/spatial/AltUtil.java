@@ -26,8 +26,9 @@ import si.uom.SI;
  * 
  * Date         Ticket#    Engineer    Description
  * ------------ ---------- ----------- --------------------------
- * Apr 4, 2013            bclement     Initial creation
- * May 8, 2019  7596      tgurney      Fixes for Units upgrade
+ * Apr 04, 2013            bclement     Initial creation
+ * May 08, 2019  7596      tgurney      Fixes for Units upgrade
+ * Nov 21, 2022  8905      lsingh       Check for NaN when converting units.
  * 
  * </pre>
  * 
@@ -101,7 +102,7 @@ public class AltUtil {
     public static double convert(Unit<?> targetUnits, Unit<?> srcUnits,
             double value)
             throws UnconvertibleException {
-        if (targetUnits == null || srcUnits == null) {
+        if (targetUnits == null || srcUnits == null || Double.isNaN(value)) {
             return value;
         }
         if (targetUnits.equals(srcUnits)) {

@@ -55,7 +55,7 @@ import com.raytheon.uf.edex.wcs.WcsException;
 import com.raytheon.uf.edex.wcs.WcsException.Code;
 
 import si.uom.SI;
-import tec.uom.se.unit.MetricPrefix;
+import javax.measure.MetricPrefix;
 
 /**
  * Base class for utilities that extract coverage metadata from OGC layer
